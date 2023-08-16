@@ -1,10 +1,11 @@
 # Simple To-Do list on Vue3 with Vuex(styling by Bootstrap)
 
-Simple Vue3 +Vuex + Bootstrap project deployed on GitHub Pages
-You shoud have Vue CLI installed to use all npm scripts.
 
-link:
-http://visitorregistrationserver.s3-website.us-east-1.amazonaws.com/
+Simple Vue3 +Vuex + Bootstrap project deployed on GitHub Pages
+Just by rewriting actions Vuex storage you may simple connect application with real rest API backend.
+
+Deployed link:
+https://ievhenbuival.github.io/todo-list/
 
 ## Description 
 
@@ -26,6 +27,7 @@ To confirm both fields must be filled.
 
 
 ## Project setup
+You shoud have Vue CLI installed to use all npm scripts.
 
 ```
 npm install
@@ -44,22 +46,6 @@ npm run serve
 npm run build
 ```
 
-### Deploy in production
-
-```
---create AWS bucket:
-npm run creates3
---make website from bucket
-npm run makes3asweb
---grant access to policy change
-npm run s3access
---change policy
-npm run s3policy
-
---deploy from ./dist to s3 bucket
-npm run deploy
-
-```
 
 ### Lints and fixes files
 
@@ -67,4 +53,3 @@ npm run deploy
 npm run lint
 ```
 
-### Customize configuration
