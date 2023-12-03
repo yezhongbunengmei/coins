@@ -38,10 +38,14 @@ export default defineComponent({
       required: true,
       type: String,
     },
+    action: {
+      required: true,
+      type: String,
+    },
   },
   methods: {
     onClick: function () {
-      this.$emit("onClickButton", this.icon);
+      this.$emit("onClickButton", this.action);
     },
   },
 });

@@ -17,7 +17,7 @@ const rootState: RootStateStorable = {
   todos: [],
   loadDate: { error: { show: false, message: "" }, loading: true },
   currentId: "",
-  order: { order: "todo", reverse: true },
+  order: { order: "state", reverse: true },
   autoScroll: false,
 };
 
@@ -57,6 +57,7 @@ const rootActions: ActionTree<RootStateStorable, RootStateStorable> = {
   fetchData(ctx) {
     ctx.commit("setLoading", true);
     const storedTodos = window.localStorage.getItem("todos");
+    console.log("fetchData: " + storedTodos);
     if (storedTodos) ctx.commit("updateTodos", JSON.parse(storedTodos));
     else ctx.commit("updateTodos", []);
     ctx.commit("setLoading", false);
@@ -105,6 +106,34 @@ const rootActions: ActionTree<RootStateStorable, RootStateStorable> = {
       });
     }
   },
+  editItem_add(ctx, item: ITodo) {
+    console.log("editItem_add " + item.state)
+    ctx.commit("setError", { show: false, message: "" });
+    try {
+      ctx.commit("updateTodo_add", item);
+      window.localStorage.setItem("todos", JSON.stringify(ctx.state.todos));
+      ctx.commit("setAutoScroll", true);
+    } catch (error) {
+      ctx.commit("setError", {
+        show: true,
+        message: "Can't save edited data item",
+      });
+    }
+  },
+  editItem_cost(ctx, item: ITodo) {
+    console.log("editItem_cost")
+    ctx.commit("setError", { show: false, message: "" });
+    try {
+      ctx.commit("updateTodo_cost", item);
+      window.localStorage.setItem("todos", JSON.stringify(ctx.state.todos));
+      ctx.commit("setAutoScroll", true);
+    } catch (error) {
+      ctx.commit("setError", {
+        show: true,
+        message: "Can't save edited data item",
+      });
+    }
+  },
   deleteItem(ctx, id: string) {
     ctx.commit("setError", { show: false, message: "" });
     try {
@@ -143,6 +172,21 @@ const rootMutations: MutationTree<RootStateStorable> = {
     const index = state.todos.findIndex((el) => todo.id === el.id);
     state.todos[index].todo = todo.todo;
     state.todos[index].state = todo.state;
+  },
+  updateTodo_add(state, todo: ITodo) {
+    const index = state.todos.findIndex((el) => todo.id === el.id);
+    // state.todos[index].todo = todo.todo;
+    state.todos[index].state = parseInt(todo.state + '') + parseInt(state.todos[index].state + '');
+    state.todos[index].currentState = parseInt(todo.state + '') + parseInt(state.todos[index].currentState + '');
+
+    console.log("exec " + state.todos[index].currentState)
+  },
+  updateTodo_cost(state, todo: ITodo) {
+    const index = state.todos.findIndex((el) => todo.id === el.id);
+    // state.todos[index].todo = todo.todo;
+    state.todos[index].currentState = parseInt(state.todos[index].currentState + '') - parseInt(todo.state + '');
+
+    console.log("exec2 " + state.todos[index].currentState)
   },
   deleteTodo(state, index: number) {
     state.todos.splice(index, 1);

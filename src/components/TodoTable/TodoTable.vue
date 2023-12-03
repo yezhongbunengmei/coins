@@ -18,7 +18,7 @@
         {{ todo.state }}
       </div>
       <div class="col-4 col-sm-2 text-break">
-        {{ todo.createdAt }}
+        {{ todo.currentState }}
       </div>
     </div>
   </div>

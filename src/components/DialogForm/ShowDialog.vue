@@ -15,29 +15,57 @@
         </h4>
         <div v-if="dialogProps.type === 'RemoveItem'">
           <h5>
-            Todo: {{ dialogProps.item?.todo }}
-          </h5>
-          <h5>
-            State: {{ dialogProps.item?.state }}
+            确定移除: {{ dialogProps.item?.todo }} 吗？
           </h5>
         </div>
+
+        <div v-if="dialogProps.type === 'AddItem'">
+          <ShowDialogInput
+            :label="'姓名'"
+            :name="'todo'"
+            :input="getInputTodo"         
+            @set-input="setInputTodo"
+          />
+        </div>
+
+        <div v-if="dialogProps.type === 'EditItem-add'">
+          <h5>
+            给 {{ dialogProps.item?.todo }} 加
+          </h5>
+          <ShowDialogInput
+            :label="'分数'"
+            :name="'todo'"
+            :input="0"         
+            @set-input="setInputItem_add"
+          />
+        </div>
+
+        <div v-if="dialogProps.type === 'EditItem-cost'">
+          <h5>
+            {{ dialogProps.item?.todo }} 将要花费：
+          </h5>
+          <ShowDialogInput
+            :label="'分数'"
+            :name="'todo'"
+            :input="0"         
+            @set-input="setInputItem_cost"
+          />
+        </div>
        
-        <div v-else>
+        <!-- <div v-else>
           <ShowDialogInput
             :label="'Todo'"
             :name="'todo'"
             :input="getInputTodo"         
             @set-input="setInputTodo"
           />
-          <ShowDialogSelect
-            :label="'State'"
+          <ShowDialogInput
+            :label="'Score'"
+            :name="'state'"
             :input="getInputState"
-            @set-select="setInputState"
+            @set-input="setInputState"
           />
-          <div v-if="dialogProps.item?.createdAt">
-            Created: {{ dialogProps.item?.createdAt }}
-          </div>
-        </div>
+        </div> -->
         <br>
 
         <div class="w-100 d-flex flex-row">
@@ -54,7 +82,7 @@
 
               @click="onSubmitDialog"
             >
-              Confirm
+              确认
             </button>
           </div>
           <div class="px-2 mw-50">
@@ -64,7 +92,7 @@
               formmethod="dialog"
               @click.prevent="onCloseDialog"
             >
-              Cancel
+              取消
             </button>
           </div>
         </div>
@@ -77,20 +105,24 @@
 import { defineComponent, ref, onMounted, PropType } from "vue";
 
 import ShowDialogInput from "@/components/DialogForm/ShowDialogInput.vue";
-import ShowDialogSelect from "@/components/DialogForm/ShowDialogSelect.vue";
+// import ShowDialogSelect from "@/components/DialogForm/ShowDialogSelect.vue";
 
 import { IDialogItem, IDialogProps } from '../../types/Dialog';
 import { mapGetters, mapActions } from 'vuex';
 
 export default defineComponent({
   name: "ShowDialog",
-  components: { ShowDialogInput,ShowDialogSelect },
+  components: { ShowDialogInput },
   emits: ["onClickCallback"],
   computed:
     mapGetters(['getInputTodo','getInputState','getTitle','getSignupButtonDisabled']),
   methods: {
     ...mapActions({
-      setInputTodo:'setInputTodo',setInputState:'setInputState'}),
+        setInputTodo:'setInputTodo',
+        setInputState:'setInputState',
+        setInputItem_add: "setInputItem_add",
+        setInputItem_cost: "setInputItem_cost",
+      }),
       onSubmitDialog: function () {
       const DialogProps: IDialogItem = {
         event: "Ok",

@@ -11,7 +11,7 @@ export interface IDialogItem {
   event: EventType;
   method?: string;
   todo?: string;
-  state?: string;
+  state?: number;
   createdAt?: string;
   id?: string;
 }
@@ -20,6 +20,6 @@ export default interface IDialog {
   show: boolean,
   disableConfirm:boolean,
   inputTodo?:string,
-  inputState?:string,
+  inputState:number,
   dialogProps: IDialogProps;
 }

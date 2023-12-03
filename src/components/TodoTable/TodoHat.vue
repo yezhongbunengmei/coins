@@ -2,22 +2,28 @@
   <div class="row   text-white font-weight-bold text-center ">
     <TableHatCell
       :order="order"
-      :title="'Todo'"
+      :title="'姓名'"
       :name="'todo'"
       @handleSorting="handleSorting"
     />
     <TableHatCell
       :order="order"
-      :title="'State'"
+      :title="'总分'"
       :name="'state'"
       @handleSorting="handleSorting"
     />
     <TableHatCell
       :order="order"
+      :title="'余额'"
+      :name="'currentSatte'"
+      @handleSorting="handleSorting"
+    />
+    <!-- <TableHatCell
+      :order="order"
       :title="'Date'"
       :name="'createdAt'"
       @handleSorting="handleSorting"
-    />
+    /> -->
   </div>
 </template>
   

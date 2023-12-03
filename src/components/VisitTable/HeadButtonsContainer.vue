@@ -4,17 +4,26 @@
       <HeadButton
         :icon="'AddItem'"
         @onClickButton="onClick"
-        :title="'Add todo'"
+        :title="'新增学生'"
+        :action="'AddItem'"
       />
       <HeadButton
         :icon="'RemoveItem'"
         @onClickButton="onClick"
-        :title="'Remove todo'"
+        :title="'移除学生'"
+        :action="'RemoveItem'"
       />
       <HeadButton
         :icon="'EditItem'"
         @onClickButton="onClick"
-        :title="'Edit todo'"
+        :title="'加分'"
+        :action="'EditItem-add'"
+      />
+      <HeadButton
+        :icon="'EditItem'"
+        @onClickButton="onClick"
+        :title="'消费'"
+        :action="'EditItem-cost'"
       />
     </div>
   </div>
